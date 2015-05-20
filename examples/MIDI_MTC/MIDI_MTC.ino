@@ -33,7 +33,6 @@
 byte mtcFPSBits = 1<<1; // use 25 FPS as standard setting
 float mtcInterval = (1000000.0 / (FPS * 4)); // timer for midi time code messages, i.e. FPS times per second
 
-volatile byte mtcMsg;
 volatile byte mtcValue; // value of that message
 volatile byte mtcType = 0; // type of the MIDI Time Code Message
 
