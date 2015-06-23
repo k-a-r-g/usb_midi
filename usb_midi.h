@@ -81,6 +81,7 @@ extern void (*usb_midi_handleAfterTouch)(uint8_t ch, uint8_t pressure);
 extern void (*usb_midi_handlePitchChange)(uint8_t ch, int pitch);
 extern void (*usb_midi_handleSysEx)(const uint8_t *data, uint16_t length, uint8_t complete);
 extern void (*usb_midi_handleRealTimeSystem)(uint8_t rtb);
+extern void (*usb_midi_handleTimeCodeQuarterFrame)(uint32_t data);
 
 #ifdef __cplusplus
 }
@@ -191,9 +192,12 @@ class usb_midi_class
         };
         inline void setHandleSysEx(void (*fptr)(const uint8_t *data, uint16_t length, bool complete)) {
                 usb_midi_handleSysEx = (void (*)(const uint8_t *, uint16_t, uint8_t))fptr;
-        }
+        };
         inline void setHandleRealTimeSystem(void (*fptr)(uint8_t realtimebyte)) {
                 usb_midi_handleRealTimeSystem = fptr;
+        };
+        inline void setHandleTimeCodeQuarterFrame(void (*fptr)(uint32_t data)) {
+                usb_midi_handleTimeCodeQuarterFrame = fptr;
         };
 	private:
 };

@@ -1,8 +1,32 @@
 /*
+      Generate MIDI Time Code messages by Karg (Timm Schlegelmilch)
+      http://karg-music.blogspot.com
+      
+      Example sketch for my usb_midi library extension for the Teensy
+      microcontroller. This sketch shows how to generate and send 
+      MIDI Time Code (MTC) messages.
+      Make sure to compile with
+      Board: "Teensy XXX"
+      USB Type: "MIDI"
+      
+      As a bonus the MTC can also be generated without the 
+      usb_midi library using any Arduino compatible board.
+      For this, uncomment line 42, and just compile with
+      your Board selected (if Teensy, use USB Type: "Serial").
+      
+      Note, you will need a (free) software that passes the 
+      serial communication from your usb port to the respective 
+      MIDI bus on your computer as described on:
+      http://karg-music.blogspot.de/2015/05/control-playbackrocroding-in-pro-tools.html
+      
+      licensed under CC BY-SA 4.0
+      http://creativecommons.org/licenses/by-sa/4.0/
+
+
 
       Based on code from Grg38
       http://forum.arduino.cc/index.php?topic=57636.0
-
+      
       Easy-to-understand explanation of the MIDI Time Code:
       http://en.wikipedia.org/wiki/MIDI_timecode
 
@@ -100,10 +124,12 @@ void sendMTC() {
 }
 
 
-
 /* Setup */
 
 void setup() {
+  #if defined (MIDI_OVER_SERIAL)
+    Serial.begin(115200);
+  #endif
   pinMode(BUTTON_PIN, INPUT_PULLUP);   
   switch (FPS){             
     case 24:
